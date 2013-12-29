@@ -26,7 +26,7 @@ public class Databases {
 
             dataSource.setUrl("jdbc:mysql://localhost:3306/mytest");
             dataSource.setUser("root");
-            dataSource.setPassword("G3LaCKVz");
+            dataSource.setPassword("bumijonet");
 
             koneksi = dataSource.getConnection();
         }

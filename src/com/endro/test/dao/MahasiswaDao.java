@@ -20,9 +20,9 @@ public interface MahasiswaDao {
 
     public void updateClien(Mahasiswa mahasiswa) throws TestException;
 
-    public void deleteClien(Integer nim) throws TestException;
+    public void deleteClien(String nim) throws TestException;
 
-    public Mahasiswa getByIdRegistrasi(Integer nim) throws TestException;
+    public Mahasiswa getByNim(String nim) throws TestException;
 
     public List<Mahasiswa> getAll() throws TestException;
 }

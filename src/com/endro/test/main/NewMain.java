@@ -6,7 +6,10 @@
 
 package com.endro.test.main;
 
+import com.endro.test.dao.MahasiswaDao;
 import com.endro.test.databases.Databases;
+import com.endro.test.entitiy.Mahasiswa;
+import com.endro.test.error.TestException;
 import java.sql.SQLException;
 
 /**
@@ -18,10 +21,25 @@ public class NewMain {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, TestException {
         // TODO code application logic here
-        Databases.getKoneksi();
+        MahasiswaDao dao = Databases.getMahasiswaDao();
         
+        //Mahasiswa mahasiswa = new Mahasiswa();
+        
+        //mahasiswa.setNim("12090778");
+        //mahasiswa.setNama("Mas longor");
+        //mahasiswa.setAlamat("Rahasia");
+        
+        //ao.insertClien(mahasiswa);
+        
+        
+        
+        //Mahasiswa mahasiswa = dao.getByNim("12090778");
+        
+        //System.out.println(mahasiswa.getAlamat());
+        
+        Mahasiswa mahasiswa = dao.getByNim("12090778");
     }
     
 }
