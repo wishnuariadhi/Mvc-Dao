@@ -11,6 +11,7 @@ import com.endro.test.databases.Databases;
 import com.endro.test.entitiy.Mahasiswa;
 import com.endro.test.error.TestException;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -31,15 +32,22 @@ public class NewMain {
         //mahasiswa.setNama("Mas longor");
         //mahasiswa.setAlamat("Rahasia");
         
-        //ao.insertClien(mahasiswa);
+        //dao.insertClien(mahasiswa);
         
         
         
         //Mahasiswa mahasiswa = dao.getByNim("12090778");
-        
         //System.out.println(mahasiswa.getAlamat());
         
-        Mahasiswa mahasiswa = dao.getByNim("12090778");
+        //Mahasiswa mahasiswa = dao.getByNim("12090778");
+        
+         //List<Mahasiswa> list = dao.getAll();
+         
+         //for(Mahasiswa mahasiswa: list){
+         //    System.out.println(mahasiswa.getAlamat());
+          //   System.out.println(mahasiswa.getNama());
+        // }
+        
     }
     
 }
