@@ -37,6 +37,7 @@ public class MahasiswaModel {
 
     public void setNim(String nim) {
         this.nim = nim;
+        fireOnChange();
     }
 
     public String getNama() {
@@ -45,6 +46,7 @@ public class MahasiswaModel {
 
     public void setNama(String nama) {
         this.nama = nama;
+        fireOnChange();
     }
 
     public String getAlamat() {
@@ -53,13 +55,9 @@ public class MahasiswaModel {
 
     public void setAlamat(String alamat) {
         this.alamat = alamat;
+        fireOnChange();
     }
 
-    protected void fireOnChage() {
-        if (listener != null) {
-            listener.onChange(this);
-        }
-    }
 
     protected void fireOnChange() {
         if (listener != null) {

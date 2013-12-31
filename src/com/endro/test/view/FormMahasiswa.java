@@ -3,26 +3,64 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.endro.test.view;
 
+import com.endro.test.controller.MahasiswaController;
+import com.endro.test.entitiy.Mahasiswa;
+import com.endro.test.model.MahasiswaModel;
+import com.endro.test.model.event.MahasiswaListener;
 import com.endro.test.model.table.TableMahasiswaModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.sound.midi.ControllerEventListener;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
  * @author bumijonet
  */
-public class FormMahasiswa extends javax.swing.JFrame {
+public class FormMahasiswa extends javax.swing.JFrame implements MahasiswaListener, ListSelectionListener, ActionListener {
 
     private TableMahasiswaModel tableModel;
+    private MahasiswaController controller;
+    private MahasiswaModel model;
+
     /**
      * Creates new form FormMahasiswa
      */
     public FormMahasiswa() {
         tableModel = new TableMahasiswaModel();
-        
+
+        model = new MahasiswaModel();
+        model.setListener(this);
+
+        controller = new MahasiswaController();
+        controller.setModel(model);
+
         initComponents();
+
+        jTableMahasiswa.getSelectionModel().addListSelectionListener(this);
         jTableMahasiswa.setModel(tableModel);
+    }
+
+    public JTextArea getjTextAlamat() {
+        return jTextAlamat;
+    }
+
+    public JTable getjTableMahasiswa() {
+        return jTableMahasiswa;
+    }
+
+    public JTextField getjTextNama() {
+        return jTextNama;
+    }
+
+    public JTextField getjTextNim() {
+        return jTextNim;
     }
 
     /**
@@ -69,12 +107,32 @@ public class FormMahasiswa extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTextAlamat);
 
         jButtonInsert.setText("Simpan");
+        jButtonInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonInsertActionPerformed(evt);
+            }
+        });
 
         jButtonUpdate.setText("Edit");
+        jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUpdateActionPerformed(evt);
+            }
+        });
 
         jButtonDelete.setText("Hapus");
+        jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeleteActionPerformed(evt);
+            }
+        });
 
         jButtonReset.setText("Reset");
+        jButtonReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonResetActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -82,12 +140,12 @@ public class FormMahasiswa extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextNim, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
                             .addComponent(jTextNama))
@@ -97,15 +155,14 @@ public class FormMahasiswa extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 182, Short.MAX_VALUE)
-                        .addComponent(jButtonReset, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonReset, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(226, 226, 226))))
+                        .addComponent(jButtonInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(215, 215, 215))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,6 +227,26 @@ public class FormMahasiswa extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertActionPerformed
+        // TODO add your handling code here:
+        controller.insert(this);
+    }//GEN-LAST:event_jButtonInsertActionPerformed
+
+    private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
+        // TODO add your handling code here:
+        controller.update(this);
+    }//GEN-LAST:event_jButtonUpdateActionPerformed
+
+    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
+        // TODO add your handling code here:
+        controller.delete(this);
+    }//GEN-LAST:event_jButtonDeleteActionPerformed
+
+    private void jButtonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResetActionPerformed
+        // TODO add your handling code here:
+        controller.reset(this);
+    }//GEN-LAST:event_jButtonResetActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -222,4 +299,41 @@ public class FormMahasiswa extends javax.swing.JFrame {
     private javax.swing.JTextField jTextNama;
     private javax.swing.JTextField jTextNim;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void onChange(MahasiswaModel model) {
+        jTextAlamat.setText(model.getAlamat());
+        jTextNama.setText(model.getNama());
+        jTextNim.setText(model.getNim());
+    }
+
+    @Override
+    public void onInsert(Mahasiswa mahasiswa) {
+        tableModel.add(mahasiswa);
+    }
+
+    @Override
+    public void onUpdate(Mahasiswa mahasiswa) {
+        int index = jTableMahasiswa.getSelectedRow();
+        tableModel.set(index, mahasiswa);
+    }
+
+    @Override
+    public void onDelete() {
+        int index = jTableMahasiswa.getSelectedRow();
+        tableModel.remove(index);
+    }
+
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        Mahasiswa mahasiswa = tableModel.get(e.getFirstIndex());
+        jTextAlamat.setText(mahasiswa.getAlamat());
+        jTextNama.setText(mahasiswa.getNama());
+        jTextNim.setText(mahasiswa.getNim());
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
